@@ -1,0 +1,203 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #eee;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #16213e;
+            width: 250px;
+            min-height: 100vh;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+
+            .sidebar .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 30px;
+                display: block;
+                text-align: center;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #e9456033;
+            }
+
+            .sidebar a {
+                color: #aaa;
+                display: block;
+                padding: 12px 15px;
+                border-radius: 8px;
+                margin-bottom: 5px;
+                text-decoration: none;
+                transition: all 0.3s;
+            }
+
+                .sidebar a:hover, .sidebar a.active {
+                    background-color: #e94560;
+                    color: white;
+                }
+
+                .sidebar a i {
+                    margin-right: 10px;
+                    width: 20px;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background-color: #16213e;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-stat {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+            border: 1px solid #e9456033;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+            .card-stat:hover {
+                transform: translateY(-5px);
+            }
+
+            .card-stat .icon {
+                font-size: 40px;
+                margin-bottom: 15px;
+            }
+
+            .card-stat .number {
+                font-size: 36px;
+                font-weight: bold;
+                color: #e94560;
+            }
+
+            .card-stat .label {
+                color: #aaa;
+                font-size: 14px;
+                margin-top: 5px;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <span class="brand"><i class="fas fa-bus"></i> SRC Travel</span>
+
+        <a href="/Admin/Dashboard" class="active">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="/Admin/Buses">
+            <i class="fas fa-bus"></i> Buses
+        </a>
+        <a href="/Admin/Employees">
+            <i class="fas fa-users"></i> Employees
+        </a>
+        <a href="/Admin/Bookings">
+            <i class="fas fa-ticket-alt"></i> Bookings
+        </a>
+        <a href="/Admin/Routes">
+            <i class="fas fa-route"></i> Routes
+        </a>
+        <a href="/Admin/Reports">
+            <i class="fas fa-chart-bar"></i> Reports
+        </a>
+        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h4 style="margin:0; color:#e94560;">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </h4>
+            <span><i class="fas fa-user-circle"></i> Welcome, Admin</span>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-stat">
+                    <div class="icon" style="color:#e94560;">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <div class="number">@ViewBag.TotalBuses</div>
+                    <div class="label">Total Buses</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat">
+                    <div class="icon" style="color:#f5a623;">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="number">@ViewBag.TotalBookings</div>
+                    <div class="label">Total Bookings</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat">
+                    <div class="icon" style="color:#4CAF50;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="number">@(((IList<online_bus_ticket.Models.User>)ViewBag.TotalEmployees).Count)</div>
+                    <div class="label">Total Employees</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat">
+                    <div class="icon" style="color:#2196F3;">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="number">Rs. @ViewBag.TotalRevenue</div>
+                    <div class="label">Total Revenue</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Form -->
+    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" method="post"></form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

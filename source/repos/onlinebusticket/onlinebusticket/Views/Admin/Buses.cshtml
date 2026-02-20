@@ -1,0 +1,219 @@
+﻿@model IEnumerable<online_bus_ticket.Models.Bus>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Management - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: #eee;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #16213e;
+            width: 250px;
+            min-height: 100vh;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+
+            .sidebar .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 30px;
+                display: block;
+                text-align: center;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #e9456033;
+            }
+
+            .sidebar a {
+                color: #aaa;
+                display: block;
+                padding: 12px 15px;
+                border-radius: 8px;
+                margin-bottom: 5px;
+                text-decoration: none;
+                transition: all 0.3s;
+            }
+
+                .sidebar a:hover, .sidebar a.active {
+                    background-color: #e94560;
+                    color: white;
+                }
+
+                .sidebar a i {
+                    margin-right: 10px;
+                    width: 20px;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            width: calc(100% - 250px);
+        }
+
+        .top-bar {
+            background-color: #16213e;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-card {
+            background-color: #16213e;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        thead {
+            background-color: #e94560;
+        }
+
+            thead th {
+                padding: 12px 15px;
+                color: white;
+            }
+
+        tbody tr {
+            border-bottom: 1px solid #ffffff11;
+        }
+
+            tbody tr:hover {
+                background-color: #0f3460;
+            }
+
+        tbody td {
+            padding: 12px 15px;
+            color: #ddd;
+        }
+
+        .btn-add {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+            .btn-add:hover {
+                background-color: #c73652;
+                color: white;
+            }
+
+        .badge-active {
+            background-color: #4CAF50;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .badge-inactive {
+            background-color: #f44336;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <span class="brand"><i class="fas fa-bus"></i> SRC Travel</span>
+        <a href="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/Admin/Buses" class="active"><i class="fas fa-bus"></i> Buses</a>
+        <a href="/Admin/Employees"><i class="fas fa-users"></i> Employees</a>
+        <a href="/Admin/Bookings"><i class="fas fa-ticket-alt"></i> Bookings</a>
+        <a href="/Admin/Routes"><i class="fas fa-route"></i> Routes</a>
+        <a href="/Admin/Reports"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h4 style="margin:0; color:#e94560;"><i class="fas fa-bus"></i> Bus Management</h4>
+            <a href="/Admin/BusCreate" class="btn-add"><i class="fas fa-plus"></i> Add New Bus</a>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div style="background:#4CAF5022; border:1px solid #4CAF50; padding:12px; border-radius:8px; margin-bottom:20px; color:#4CAF50;">
+                <i class="fas fa-check-circle"></i> @TempData["Success"]
+            </div>
+        }
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Bus Number</th>
+                        <th>Bus Type</th>
+                        <th>Total Seats</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bus in Model)
+                    {
+                        <tr>
+                            <td>@bus.BusId</td>
+                            <td>@bus.BusNumber</td>
+                            <td>@bus.BusType</td>
+                            <td>@bus.TotalSeats</td>
+                            <td>
+                                @if (bus.IsActive)
+                                {
+                                    <span class="badge-active">Active</span>
+                                }
+                                else
+                                {
+
+                                    <span class="badge-inactive">Inactive</span>
+                                }
+                            </td>
+                            <td>
+                                <a href="/Admin/BusEdit/@bus.BusId" style="color:#f5a623; margin-right:10px;">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="/Admin/BusDelete/@bus.BusId"
+                                   onclick="return confirm('Are you sure?')"
+                                   style="color:#e94560;">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" method="post"></form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
