@@ -1,0 +1,361 @@
+﻿@{
+    ViewData["Title"] = "Features";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Features - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+            .navbar .brand {
+                color: #e94560;
+                font-size: 24px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .navbar .nav-links a {
+                color: #ddd;
+                text-decoration: none;
+                margin-left: 25px;
+                font-size: 14px;
+            }
+
+                .navbar .nav-links a:hover {
+                    color: #e94560;
+                }
+
+            .navbar .nav-links .btn-login {
+                background-color: #e94560;
+                color: white !important;
+                padding: 8px 22px;
+                border-radius: 25px;
+            }
+
+        .page-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            padding: 150px 40px 80px;
+            text-align: center;
+        }
+
+            .page-hero h1 {
+                color: white;
+                font-size: 48px;
+                font-weight: 800;
+            }
+
+                .page-hero h1 span {
+                    color: #e94560;
+                }
+
+            .page-hero p {
+                color: #aaa;
+                font-size: 16px;
+                margin-top: 15px;
+            }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(233,69,96,0.1);
+            color: #e94560;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .section-subtitle {
+            color: #999;
+            font-size: 15px;
+            margin-bottom: 60px;
+        }
+
+        .features-section {
+            padding: 100px 40px;
+            background: #f4f6f9;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            height: 100%;
+            border-bottom: 3px solid transparent;
+        }
+
+            .feature-card:hover {
+                transform: translateY(-8px);
+                border-bottom: 3px solid #e94560;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            }
+
+            .feature-card .icon-box {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, rgba(233,69,96,0.1), rgba(233,69,96,0.2));
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 20px;
+                font-size: 32px;
+                color: #e94560;
+                transition: all 0.3s;
+            }
+
+            .feature-card:hover .icon-box {
+                background: linear-gradient(135deg, #e94560, #c73652);
+                color: white;
+            }
+
+            .feature-card h5 {
+                color: #1a1a2e;
+                font-weight: 700;
+                margin-bottom: 12px;
+                font-size: 18px;
+            }
+
+            .feature-card p {
+                color: #999;
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+        .cta-section {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            text-align: center;
+        }
+
+            .cta-section h2 {
+                color: white;
+                font-size: 40px;
+                font-weight: 800;
+                margin-bottom: 15px;
+            }
+
+                .cta-section h2 span {
+                    color: #e94560;
+                }
+
+            .cta-section p {
+                color: #aaa;
+                font-size: 16px;
+                margin-bottom: 35px;
+            }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(233,69,96,0.4);
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+            .btn-cta:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(233,69,96,0.5);
+                color: white;
+            }
+
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #aaa;
+            padding: 40px;
+            text-align: center;
+        }
+
+            .footer .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+        }
+
+            .footer-links a:hover {
+                color: #e94560;
+            }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/Home/Index" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+        <div class="nav-links">
+            <a href="/Home/Index">Home</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Routes">Routes</a>
+            <a href="/Home/Features">Features</a>
+            <a href="/Identity/Account/Login" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="/Identity/Account/Register" style="margin-left:10px;">Register</a>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <h1>Our <span>Features</span></h1>
+        <p>Everything you need for a perfect journey</p>
+    </div>
+
+    <section class="features-section">
+        <div class="container">
+            <div class="text-center">
+                <div class="section-badge">Features</div>
+                <div class="section-title">Why SRC Travel?</div>
+                <div class="section-subtitle">We offer the best features for a seamless travel experience</div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <a href="/Home/Search" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-ticket-alt"></i></div>
+                            <h5>Easy Online Booking</h5>
+                            <p>Book your bus tickets online from anywhere at any time. No need to visit the bus stand!</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <a href="/Home/Search" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-chair"></i></div>
+                            <h5>Seat Selection</h5>
+                            <p>View the bus layout and choose your preferred seat - window, aisle, or any position you like</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="/Identity/Account/Login" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                            <h5>Secure Payment</h5>
+                            <p>Your payment information is completely safe and secure with our encrypted system</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <a href="/Identity/Account/Login" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-print"></i></div>
+                            <h5>Instant Ticket</h5>
+                            <p>Get your ticket instantly after booking - print it or show on your phone at the bus stop</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="/Identity/Account/Login" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-history"></i></div>
+                            <h5>Booking History</h5>
+                            <p>Access all your past and upcoming bookings anytime from your account dashboard</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="/Identity/Account/Login" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-times-circle"></i></div>
+                            <h5>Easy Cancellation</h5>
+                            <p>Cancel your booking easily and get refund processed quickly without any hassle</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up">
+                    <a href="/Home/About" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-headset"></i></div>
+                            <h5>24/7 Support</h5>
+                            <p>Our customer support team is available around the clock to help you with any issue</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <a href="/Home/Routes" style="text-decoration:none;">
+                        <div class="feature-card">
+                            <div class="icon-box"><i class="fas fa-route"></i></div>
+                            <h5>Multiple Routes</h5>
+                            <p>Travel to 25+ destinations across Pakistan with our wide network of bus routes</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-mobile-alt"></i></div>
+                        <h5>Mobile Friendly</h5>
+                        <p>Our website works perfectly on all devices - phone, tablet, and desktop</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" data-aos="fade-up">
+        <h2>Ready to <span>Travel?</span></h2>
+        <p>Book your ticket now and experience the best journey with SRC Travel</p>
+        <a href="/Identity/Account/Register" class="btn-cta">
+            <i class="fas fa-user-plus"></i> Get Started Free
+        </a>
+    </section>
+
+    <footer class="footer">
+        <div class="brand"><i class="fas fa-bus"></i> SRC Travel</div>
+        <div class="footer-links" style="margin-top:15px;">
+            <a href="/Home/Index">Home</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Routes">Routes</a>
+            <a href="/Identity/Account/Login">Login</a>
+        </div>
+        <p style="margin-top:15px; font-size:13px;">© 2026 SRC Travel. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+</body>
+</html>

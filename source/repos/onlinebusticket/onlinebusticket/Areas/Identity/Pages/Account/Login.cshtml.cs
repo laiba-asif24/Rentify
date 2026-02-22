@@ -116,7 +116,19 @@ namespace onlinebusticket.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                    if (await _signInManager.UserManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return LocalRedirect("/Admin/Dashboard");
+                    }
+                    else if (await _signInManager.UserManager.IsInRoleAsync(user, "Employee"))
+                    {
+                        return LocalRedirect("/Employee/Dashboard");
+                    }
+                    else
+                    {
+                        return LocalRedirect("/Home/Index");
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {

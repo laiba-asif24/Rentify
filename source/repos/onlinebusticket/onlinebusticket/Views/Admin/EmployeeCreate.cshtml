@@ -1,11 +1,11 @@
-﻿@model online_bus_ticket.Models.Bus
+﻿@model online_bus_ticket.Models.User
 @{
     Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Bus - SRC Travel</title>
+    <title>Add Employee - SRC Travel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -103,7 +103,7 @@
             margin-bottom: 5px;
         }
 
-        .form-control, .form-select {
+        .form-control {
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             padding: 10px 15px;
@@ -111,7 +111,7 @@
             color: #333;
         }
 
-            .form-control:focus, .form-select:focus {
+            .form-control:focus {
                 border-color: #e94560;
                 box-shadow: 0 0 0 0.2rem rgba(233,69,96,0.15);
             }
@@ -145,6 +145,11 @@
                 background-color: #e0e0e0;
                 color: #333;
             }
+
+        .error-text {
+            color: #e94560;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -152,8 +157,8 @@
     <div class="sidebar">
         <span class="brand"><i class="fas fa-bus"></i> SRC Travel</span>
         <a href="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="/Admin/Buses" class="active"><i class="fas fa-bus"></i> Buses</a>
-        <a href="/Admin/Employees"><i class="fas fa-users"></i> Employees</a>
+        <a href="/Admin/Buses"><i class="fas fa-bus"></i> Buses</a>
+        <a href="/Admin/Employees" class="active"><i class="fas fa-users"></i> Employees</a>
         <a href="/Admin/Bookings"><i class="fas fa-ticket-alt"></i> Bookings</a>
         <a href="/Admin/Routes"><i class="fas fa-route"></i> Routes</a>
         <a href="/Admin/Reports"><i class="fas fa-chart-bar"></i> Reports</a>
@@ -164,40 +169,39 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h4><i class="fas fa-edit" style="color:#e94560;"></i> Edit Bus</h4>
-            <a href="/Admin/Buses" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+            <h4><i class="fas fa-user-plus" style="color:#e94560;"></i> Add New Employee</h4>
+            <a href="/Admin/Employees" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
         </div>
 
         <div class="form-card">
-            <form asp-action="BusEdit" asp-controller="Admin" method="post">
-                <input asp-for="BusId" type="hidden" />
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div style="background:#ffebee; border:1px solid #f44336; padding:12px; border-radius:8px; margin-bottom:20px; color:#c62828;">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <div><i class="fas fa-exclamation-circle"></i> @error.ErrorMessage</div>
+                    }
+                </div>
+            }
+
+            <form asp-action="EmployeeCreate" asp-controller="Admin" method="post">
                 <div class="mb-3">
-                    <label class="form-label">Bus Number</label>
-                    <input asp-for="BusNumber" class="form-control" />
+                    <label class="form-label">Full Name</label>
+                    <input asp-for="FullName" class="form-control" placeholder="e.g. Ahmed Ali" />
+                    <span asp-validation-for="FullName" class="error-text"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Bus Type</label>
-                    <select asp-for="BusType" class="form-select">
-                        <option value="AC">AC</option>
-                        <option value="Non-AC">Non-AC</option>
-                        <option value="Sleeper">Sleeper</option>
-                        <option value="Mini">Mini</option>
-                    </select>
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="e.g. ahmed@src.com" />
+                    <span asp-validation-for="Email" class="error-text"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Total Seats</label>
-                    <input asp-for="TotalSeats" class="form-control" type="number" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select asp-for="IsActive" class="form-select">
-                        <option value="true">Active</option>
-                        <option value="false">Inactive</option>
-                    </select>
+                    <label class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" placeholder="Min 8 chars, 1 uppercase, 1 number" />
                 </div>
                 <div class="mt-4">
-                    <a href="/Admin/Buses" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
-                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Update Bus</button>
+                    <a href="/Admin/Employees" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Save Employee</button>
                 </div>
             </form>
         </div>

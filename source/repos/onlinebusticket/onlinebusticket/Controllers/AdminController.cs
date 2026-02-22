@@ -44,7 +44,7 @@ namespace onlinebusticket.Controllers
         [HttpPost]
         public async Task<IActionResult> BusCreate(Bus bus)
         {
-            // ModelState se BusSchedules aur Seats ignore karo
+          
             ModelState.Remove("BusSchedules");
             ModelState.Remove("Seats");
 
@@ -92,5 +92,154 @@ namespace onlinebusticket.Controllers
             }
             return RedirectToAction("Buses");
         }
+
+        // ========== EMPLOYEE CRUD ==========
+        public async Task<IActionResult> Employees()
+        {
+            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            return View(employees);
+        }
+
+        public IActionResult EmployeeCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EmployeeCreate(User user, string password)
+        {
+            ModelState.Remove("Role");
+            ModelState.Remove("Bookings");
+            ModelState.Remove("Enquiries");
+            ModelState.Remove("RoleId");
+
+            if (ModelState.IsValid)
+            {
+                user.IsActive = true;
+                user.EmailConfirmed = true;
+                user.UserName = user.Email;
+                user.RoleId = 2; // Employee Role ID
+                var result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Employee");
+                    TempData["Success"] = "Employee added successfully!";
+                    return RedirectToAction("Employees");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            return View(user);
+        }
+        public async Task<IActionResult> EmployeeDelete(int id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+                TempData["Success"] = "Employee deleted successfully!";
+            }
+            return RedirectToAction("Employees");
+        }
+
+
+
+        // ========== ROUTES CRUD ==========
+        public async Task<IActionResult> Routes()
+        {
+            var routes = await _context.Routes.ToListAsync();
+            return View(routes);
+        }
+
+        public IActionResult RouteCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RouteCreate(BusRoute route)
+        {
+            ModelState.Remove("BusSchedules");
+            if (ModelState.IsValid)
+            {
+                _context.Routes.Add(route);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Route added successfully!";
+                return RedirectToAction("Routes");
+            }
+            return View(route);
+        }
+
+        public async Task<IActionResult> RouteEdit(int id)
+        {
+            var route = await _context.Routes.FindAsync(id);
+            if (route == null) return NotFound();
+            return View(route);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RouteEdit(BusRoute route)
+        {
+            ModelState.Remove("BusSchedules");
+            if (ModelState.IsValid)
+            {
+                _context.Routes.Update(route);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Route updated successfully!";
+                return RedirectToAction("Routes");
+            }
+            return View(route);
+        }
+
+        public async Task<IActionResult> RouteDelete(int id)
+        {
+            var route = await _context.Routes.FindAsync(id);
+            if (route != null)
+            {
+                _context.Routes.Remove(route);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Route deleted successfully!";
+            }
+            return RedirectToAction("Routes");
+        }
+
+        // ========== BOOKINGS ==========
+        public async Task<IActionResult> Bookings()
+        {
+            var bookings = await _context.Bookings
+                .Include(b => b.User)
+                .Include(b => b.BusSchedule)
+                .ThenInclude(s => s.Bus)
+                .ToListAsync();
+            return View(bookings);
+        }
+
+        public async Task<IActionResult> BookingDelete(int id)
+        {
+            var booking = await _context.Bookings.FindAsync(id);
+            if (booking != null)
+            {
+                _context.Bookings.Remove(booking);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Booking deleted successfully!";
+            }
+            return RedirectToAction("Bookings");
+        }
+        // ========== REPORTS ==========
+        public async Task<IActionResult> Reports()
+        {
+            ViewBag.TotalBuses = await _context.Buses.CountAsync();
+            ViewBag.TotalRoutes = await _context.Routes.CountAsync();
+            ViewBag.TotalBookings = await _context.Bookings.CountAsync();
+            ViewBag.TotalRevenue = await _context.Payments.SumAsync(p => p.Amount);
+            ViewBag.TotalEmployees = (await _userManager.GetUsersInRoleAsync("Employee")).Count;
+            ViewBag.TotalCustomers = (await _userManager.GetUsersInRoleAsync("Customer")).Count;
+            ViewBag.ConfirmedBookings = await _context.Bookings.CountAsync(b => b.Status == "Confirmed");
+            ViewBag.CancelledBookings = await _context.Bookings.CountAsync(b => b.Status == "Cancelled");
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,320 @@
+﻿@{
+    ViewData["Title"] = "Routes";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Routes - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+            .navbar .brand {
+                color: #e94560;
+                font-size: 24px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .navbar .nav-links a {
+                color: #ddd;
+                text-decoration: none;
+                margin-left: 25px;
+                font-size: 14px;
+            }
+
+                .navbar .nav-links a:hover {
+                    color: #e94560;
+                }
+
+            .navbar .nav-links .btn-login {
+                background-color: #e94560;
+                color: white !important;
+                padding: 8px 22px;
+                border-radius: 25px;
+            }
+
+        .page-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            padding: 150px 40px 80px;
+            text-align: center;
+        }
+
+            .page-hero h1 {
+                color: white;
+                font-size: 48px;
+                font-weight: 800;
+            }
+
+                .page-hero h1 span {
+                    color: #e94560;
+                }
+
+            .page-hero p {
+                color: #aaa;
+                font-size: 16px;
+                margin-top: 15px;
+            }
+
+        .routes-section {
+            padding: 80px 40px;
+            background: #f4f6f9;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(233,69,96,0.1);
+            color: #e94560;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .section-subtitle {
+            color: #999;
+            font-size: 15px;
+            margin-bottom: 50px;
+        }
+
+        .route-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            border-left: 5px solid #e94560;
+            cursor: pointer;
+        }
+
+            .route-card:hover {
+                background: linear-gradient(135deg, #e94560, #c73652);
+                transform: translateX(8px);
+                box-shadow: 0 10px 30px rgba(233,69,96,0.3);
+            }
+
+                .route-card:hover .route-cities,
+                .route-card:hover .route-info,
+                .route-card:hover .route-price,
+                .route-card:hover .route-duration {
+                    color: white !important;
+                }
+
+        .route-cities {
+            font-weight: 700;
+            color: #1a1a2e;
+            font-size: 18px;
+        }
+
+        .route-info {
+            color: #999;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .route-price {
+            color: #e94560;
+            font-weight: 800;
+            font-size: 22px;
+            text-align: right;
+        }
+
+        .route-duration {
+            color: #999;
+            font-size: 12px;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #aaa;
+            padding: 40px;
+            text-align: center;
+        }
+
+            .footer .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+        }
+
+            .footer-links a:hover {
+                color: #e94560;
+            }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/Home/Index" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+        <div class="nav-links">
+            <a href="/Home/Index">Home</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Routes">Routes</a>
+            <a href="/Home/Features">Features</a>
+            <a href="/Identity/Account/Login" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="/Identity/Account/Register" style="margin-left:10px;">Register</a>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <h1>Our <span>Routes</span></h1>
+        <p>Explore all available routes across Pakistan</p>
+    </div>
+
+    <section class="routes-section">
+        <div class="container">
+            <div class="text-center">
+                <div class="section-badge">All Routes</div>
+                <div class="section-title">Available Routes</div>
+                <div class="section-subtitle">Choose from our wide network of routes across Pakistan</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" data-aos="fade-right">
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Karachi → Lahore</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 1200 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 2500</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 14 Hours</div>
+                        </div>
+                    </div>
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Lahore → Islamabad</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 380 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 800</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 4 Hours</div>
+                        </div>
+                    </div>
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Karachi → Quetta</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 700 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Sleeper</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 1800</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 10 Hours</div>
+                        </div>
+                    </div>
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Karachi → Hyderabad</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 160 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 400</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 2 Hours</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-left">
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Islamabad → Peshawar</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 175 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 500</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 2 Hours</div>
+                        </div>
+                    </div>
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Lahore → Multan</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 340 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 750</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 4 Hours</div>
+                        </div>
+                    </div>
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Multan → Faisalabad</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 200 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 600</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 3 Hours</div>
+                        </div>
+                    </div>
+                    <div class="route-card">
+                        <div>
+                            <div class="route-cities"><i class="fas fa-circle" style="font-size:8px;color:#e94560;"></i> Lahore → Faisalabad</div>
+                            <div class="route-info"><i class="fas fa-road"></i> 180 KM &nbsp;|&nbsp; <i class="fas fa-bus"></i> AC & Non-AC</div>
+                        </div>
+                        <div>
+                            <div class="route-price">Rs. 450</div>
+                            <div class="route-duration"><i class="fas fa-clock"></i> 2.5 Hours</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="brand"><i class="fas fa-bus"></i> SRC Travel</div>
+        <div class="footer-links" style="margin-top:15px;">
+            <a href="/Home/Index">Home</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Routes">Routes</a>
+            <a href="/Identity/Account/Login">Login</a>
+        </div>
+        <p style="margin-top:15px; font-size:13px;">© 2026 SRC Travel. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+</body>
+</html>

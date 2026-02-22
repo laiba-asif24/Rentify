@@ -1,0 +1,429 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+            .navbar .brand {
+                color: #e94560;
+                font-size: 24px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .navbar .nav-links a {
+                color: #ddd;
+                text-decoration: none;
+                margin-left: 25px;
+                font-size: 14px;
+            }
+
+                .navbar .nav-links a:hover {
+                    color: #e94560;
+                }
+
+            .navbar .nav-links .btn-login {
+                background-color: #e94560;
+                color: white !important;
+                padding: 8px 22px;
+                border-radius: 25px;
+            }
+
+        .page-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            padding: 150px 40px 80px;
+            text-align: center;
+        }
+
+            .page-hero h1 {
+                color: white;
+                font-size: 48px;
+                font-weight: 800;
+            }
+
+                .page-hero h1 span {
+                    color: #e94560;
+                }
+
+            .page-hero p {
+                color: #aaa;
+                font-size: 16px;
+                margin-top: 15px;
+            }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(233,69,96,0.1);
+            color: #e94560;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .about-section {
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .about-img-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .about-img-box i {
+                font-size: 80px;
+                color: #e94560;
+                margin-bottom: 20px;
+            }
+
+            .about-img-box h3 {
+                font-size: 28px;
+                font-weight: 800;
+            }
+
+            .about-img-box p {
+                color: #aaa;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+
+        .about-text h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+            .about-text h2 span {
+                color: #e94560;
+            }
+
+        .about-text p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+            .about-list li {
+                padding: 8px 0;
+                color: #555;
+                font-size: 15px;
+            }
+
+                .about-list li i {
+                    color: #e94560;
+                    margin-right: 10px;
+                }
+
+        .values-section {
+            padding: 100px 40px;
+            background: #f4f6f9;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .section-subtitle {
+            color: #999;
+            font-size: 15px;
+            margin-bottom: 60px;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+            .value-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            }
+
+            .value-card .icon-box {
+                width: 70px;
+                height: 70px;
+                background: linear-gradient(135deg, rgba(233,69,96,0.1), rgba(233,69,96,0.2));
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 20px;
+                font-size: 28px;
+                color: #e94560;
+                transition: all 0.3s;
+            }
+
+            .value-card:hover .icon-box {
+                background: linear-gradient(135deg, #e94560, #c73652);
+                color: white;
+            }
+
+            .value-card h5 {
+                color: #1a1a2e;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .value-card p {
+                color: #999;
+                font-size: 14px;
+            }
+
+        .team-section {
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .team-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+            .team-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            }
+
+            .team-card .avatar {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #e94560, #c73652);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 15px;
+                font-size: 30px;
+                color: white;
+            }
+
+            .team-card h5 {
+                color: #1a1a2e;
+                font-weight: 700;
+            }
+
+            .team-card p {
+                color: #999;
+                font-size: 13px;
+            }
+
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #aaa;
+            padding: 40px;
+            text-align: center;
+        }
+
+            .footer .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+        }
+
+            .footer-links a:hover {
+                color: #e94560;
+            }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/Home/Index" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+        <div class="nav-links">
+            <a href="/Home/Index">Home</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Routes">Routes</a>
+            <a href="/Home/Features">Features</a>
+            <a href="/Identity/Account/Login" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="/Identity/Account/Register" style="margin-left:10px;">Register</a>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <h1>About <span>SRC Travel</span></h1>
+        <p>Pakistan's most reliable bus reservation system since 2020</p>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-md-5" data-aos="fade-right">
+                    <div class="about-img-box">
+                        <i class="fas fa-bus"></i>
+                        <h3>SRC Travel</h3>
+                        <p>Connecting cities, connecting people</p>
+                    </div>
+                </div>
+                <div class="col-md-7 about-text" data-aos="fade-left">
+                    <div class="section-badge">Our Story</div>
+                    <h2>We Make Your <span>Journey</span> Comfortable</h2>
+                    <p>SRC Travel was founded with a simple mission - to make bus travel in Pakistan easy, affordable, and comfortable for everyone. We believe that every Pakistani deserves a seamless travel experience.</p>
+                    <p>With our modern online booking system, you can book your tickets from anywhere at any time. We cover major cities across Pakistan and are constantly expanding our network.</p>
+                    <ul class="about-list">
+                        <li><i class="fas fa-check-circle"></i> 50+ Buses across Pakistan</li>
+                        <li><i class="fas fa-check-circle"></i> 25+ Routes available</li>
+                        <li><i class="fas fa-check-circle"></i> 10,000+ Happy customers</li>
+                        <li><i class="fas fa-check-circle"></i> 5+ Years of experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-section">
+        <div class="container">
+            <div class="text-center">
+                <div class="section-badge">Our Values</div>
+                <div class="section-title">What We Stand For</div>
+                <div class="section-subtitle">Our core values guide everything we do</div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3" data-aos="fade-up">
+                    <div class="value-card">
+                        <div class="icon-box"><i class="fas fa-heart"></i></div>
+                        <h5>Customer First</h5>
+                        <p>Every decision we make is focused on customer satisfaction</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-card">
+                        <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                        <h5>Safety</h5>
+                        <p>We prioritize the safety of every passenger on every journey</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-card">
+                        <div class="icon-box"><i class="fas fa-handshake"></i></div>
+                        <h5>Trust</h5>
+                        <p>We build lasting relationships based on transparency and honesty</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="value-card">
+                        <div class="icon-box"><i class="fas fa-rocket"></i></div>
+                        <h5>Innovation</h5>
+                        <p>We constantly improve our services to give you the best experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team-section">
+        <div class="container">
+            <div class="text-center">
+                <div class="section-badge">Our Team</div>
+                <div class="section-title">Meet Our Team</div>
+                <div class="section-subtitle">The people behind SRC Travel</div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-3" data-aos="fade-up">
+                    <div class="team-card">
+                        <div class="avatar"><i class="fas fa-user"></i></div>
+                        <h5>Ahmed Ali</h5>
+                        <p>CEO & Founder</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="avatar"><i class="fas fa-user"></i></div>
+                        <h5>Sara Khan</h5>
+                        <p>Operations Manager</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="avatar"><i class="fas fa-user"></i></div>
+                        <h5>Bilal Ahmed</h5>
+                        <p>Head of Technology</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="brand"><i class="fas fa-bus"></i> SRC Travel</div>
+        <div class="footer-links" style="margin-top:15px;">
+            <a href="/Home/Index">Home</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Routes">Routes</a>
+            <a href="/Identity/Account/Login">Login</a>
+        </div>
+        <p style="margin-top:15px; font-size:13px;">© 2026 SRC Travel. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+</body>
+</html>

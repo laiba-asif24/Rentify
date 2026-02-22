@@ -1,0 +1,245 @@
+﻿@model IEnumerable<online_bus_ticket.Models.BusSchedule>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f6f9; }
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 60px; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        .navbar .brand { color: #e94560; font-size: 24px; font-weight: bold; text-decoration: none; }
+        .navbar .nav-links a { color: #ddd; text-decoration: none; margin-left: 25px; font-size: 14px; }
+        .navbar .nav-links a:hover { color: #e94560; }
+        .navbar .nav-links .btn-login {
+            background-color: #e94560; color: white !important; padding: 8px 22px; border-radius: 25px;
+        }
+
+        /* SEARCH BAR TOP */
+        .search-bar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 100px 40px 30px;
+        }
+        .search-form {
+            background: white; border-radius: 15px; padding: 25px 30px;
+            display: flex; gap: 15px; align-items: flex-end;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .search-form .form-group { flex: 1; }
+        .search-form label { color: #555; font-size: 12px; font-weight: 600; margin-bottom: 5px; display: block; }
+        .search-form select, .search-form input {
+            width: 100%; border: 2px solid #f0f0f0; border-radius: 8px;
+            padding: 10px 15px; font-size: 14px;
+        }
+        .search-form select:focus, .search-form input:focus {
+            border-color: #e94560; outline: none;
+        }
+        .btn-search {
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: white; border: none; padding: 12px 30px;
+            border-radius: 8px; font-size: 14px; font-weight: bold;
+            cursor: pointer; white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(233,69,96,0.4);
+        }
+        .btn-search:hover { transform: translateY(-2px); }
+
+        /* RESULTS */
+        .results-section { padding: 30px 40px; max-width: 900px; margin: 0 auto; }
+        .results-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px;
+        }
+        .results-header h5 { color: #1a1a2e; font-weight: 700; font-size: 18px; }
+        .results-header span { color: #999; font-size: 14px; }
+
+        .bus-card {
+            background: white; border-radius: 15px; padding: 25px 30px;
+            margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s; border-left: 5px solid #e94560;
+        }
+        .bus-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .bus-top { display: flex; justify-content: space-between; align-items: center; }
+        .bus-timing { display: flex; align-items: center; gap: 20px; }
+        .time { font-size: 26px; font-weight: 800; color: #1a1a2e; }
+        .arrow { color: #e94560; font-size: 20px; }
+        .duration { color: #999; font-size: 13px; text-align: center; }
+        .bus-info { margin-top: 15px; padding-top: 15px; border-top: 1px solid #f0f0f0; display: flex; gap: 20px; }
+        .info-badge {
+            background: #f4f6f9; padding: 5px 12px; border-radius: 20px;
+            font-size: 12px; color: #666;
+        }
+        .info-badge i { color: #e94560; margin-right: 5px; }
+        .price-section { text-align: right; }
+        .price { font-size: 28px; font-weight: 800; color: #e94560; }
+        .price-label { color: #999; font-size: 12px; }
+        .btn-book {
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: white; border: none; padding: 12px 25px;
+            border-radius: 8px; font-size: 14px; font-weight: bold;
+            cursor: pointer; margin-top: 10px; text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(233,69,96,0.3);
+            transition: all 0.3s;
+        }
+        .btn-book:hover { transform: translateY(-2px); color: white; }
+
+        /* NO RESULTS */
+        .no-results {
+            text-align: center; padding: 80px 40px;
+            background: white; border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+        .no-results i { font-size: 60px; color: #ddd; margin-bottom: 20px; }
+        .no-results h5 { color: #999; font-size: 18px; }
+        .no-results p { color: #bbb; font-size: 14px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/Home/Index" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+    <div class="nav-links">
+        <a href="/Home/Index">Home</a>
+        <a href="/Home/About">About</a>
+        <a href="/Home/Routes">Routes</a>
+        <a href="/Home/Features">Features</a>
+        <a href="/Identity/Account/Login" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="/Identity/Account/Register" style="margin-left:10px;">Register</a>
+    </div>
+</nav>
+
+<!-- Search Bar -->
+<div class="search-bar">
+        <form method="get" action="/Home/Search" class="search-form">
+            <div class="form-group">
+                <label>From</label>
+                <select name="from" class="form-control">
+                    <option value="">-- Select City --</option>
+                    <option value="Karachi">Karachi</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Islamabad">Islamabad</option>
+                    <option value="Peshawar">Peshawar</option>
+                    <option value="Quetta">Quetta</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Faisalabad">Faisalabad</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>To</label>
+                <select name="to" class="form-control">
+                    <option value="">-- Select City --</option>
+                    <option value="Karachi">Karachi</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Islamabad">Islamabad</option>
+                    <option value="Peshawar">Peshawar</option>
+                    <option value="Quetta">Quetta</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Faisalabad">Faisalabad</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Travel Date</label>
+                <input type="date" name="date" value="@ViewBag.Date" />
+            </div>
+            <button type="submit" class="btn-search">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+</div>
+
+<!-- Results -->
+<div class="results-section">
+    <div class="results-header">
+        <h5>
+            <i class="fas fa-map-marker-alt" style="color:#e94560;"></i>
+            @ViewBag.From → @ViewBag.To
+        </h5>
+        <span>@Model.Count() buses found</span>
+    </div>
+
+    @if (Model.Any())
+    {
+        @foreach (var schedule in Model)
+        {
+            <div class="bus-card" data-aos="fade-up">
+                <div class="bus-top">
+                    <div class="bus-timing">
+                        <div>
+                            <div class="time">@schedule.DepartureTime.ToString("hh:mm tt")</div>
+                            <div style="color:#999; font-size:12px;">@schedule.Route?.SourceCity</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="arrow"><i class="fas fa-arrow-right"></i></div>
+                            <div class="duration">
+                                @{
+                                    var duration = schedule.ArrivalTime - schedule.DepartureTime;
+                                    var hours = (int)duration.TotalHours;
+                                    var mins = duration.Minutes;
+                                }
+                                @hours hr @mins min
+                            </div>
+                        </div>
+                        <div>
+                            <div class="time">@schedule.ArrivalTime.ToString("hh:mm tt")</div>
+                            <div style="color:#999; font-size:12px;">@schedule.Route?.DestinationCity</div>
+                        </div>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">Rs. @schedule.Fare</div>
+                        <div class="price-label">per person</div>
+                        <a href="/Identity/Account/Login" class="btn-book">
+                            <i class="fas fa-ticket-alt"></i> Book Now
+                        </a>
+                    </div>
+                </div>
+                <div class="bus-info">
+                    <span class="info-badge"><i class="fas fa-bus"></i> @schedule.Bus?.BusNumber</span>
+                    <span class="info-badge"><i class="fas fa-couch"></i> @schedule.Bus?.BusType</span>
+                    <span class="info-badge"><i class="fas fa-chair"></i> @schedule.Bus?.TotalSeats Seats</span>
+                    <span class="info-badge"><i class="fas fa-road"></i> @schedule.Route?.DistanceKM KM</span>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="no-results">
+            <i class="fas fa-bus"></i>
+            <h5>No buses found!</h5>
+            <p>No buses available for @ViewBag.From → @ViewBag.To on this date. Please try different cities or date.</p>
+        </div>
+    }
+</div>
+
+
+
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Set selected values
+        var fromVal = "@ViewBag.From";
+        var toVal = "@ViewBag.To";
+
+        if(fromVal) {
+            document.querySelector('select[name="from"]').value = fromVal;
+        }
+        if(toVal) {
+            document.querySelector('select[name="to"]').value = toVal;
+        }
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 800, once: true });</script>
+</body>
+</html>

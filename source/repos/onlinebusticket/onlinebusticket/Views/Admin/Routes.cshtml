@@ -1,11 +1,11 @@
-﻿@model online_bus_ticket.Models.Bus
+﻿@model IEnumerable<online_bus_ticket.Models.BusRoute>
 @{
     Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Bus - SRC Travel</title>
+    <title>Routes Management - SRC Travel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -89,62 +89,65 @@
                 font-size: 18px;
             }
 
-        .form-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            max-width: 600px;
-        }
-
-        .form-label {
-            color: #555;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .form-control, .form-select {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-size: 14px;
-            color: #333;
-        }
-
-            .form-control:focus, .form-select:focus {
-                border-color: #e94560;
-                box-shadow: 0 0 0 0.2rem rgba(233,69,96,0.15);
-            }
-
-        .btn-save {
+        .btn-add {
             background-color: #e94560;
             color: white;
             border: none;
-            padding: 10px 30px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-            .btn-save:hover {
-                background-color: #c73652;
-            }
-
-        .btn-back {
-            background-color: #f4f6f9;
-            color: #666;
-            border: 1px solid #e0e0e0;
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-size: 14px;
-            margin-right: 10px;
         }
 
-            .btn-back:hover {
-                background-color: #e0e0e0;
-                color: #333;
+            .btn-add:hover {
+                background-color: #c73652;
+                color: white;
             }
+
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background-color: #1a1a2e;
+        }
+
+        thead th {
+            padding: 12px 15px;
+            color: white;
+            font-size: 13px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+            tbody tr:hover {
+                background-color: #f9f9f9;
+            }
+
+        tbody td {
+            padding: 12px 15px;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            border: 1px solid #4CAF50;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
     </style>
 </head>
 <body>
@@ -152,10 +155,10 @@
     <div class="sidebar">
         <span class="brand"><i class="fas fa-bus"></i> SRC Travel</span>
         <a href="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="/Admin/Buses" class="active"><i class="fas fa-bus"></i> Buses</a>
+        <a href="/Admin/Buses"><i class="fas fa-bus"></i> Buses</a>
         <a href="/Admin/Employees"><i class="fas fa-users"></i> Employees</a>
         <a href="/Admin/Bookings"><i class="fas fa-ticket-alt"></i> Bookings</a>
-        <a href="/Admin/Routes"><i class="fas fa-route"></i> Routes</a>
+        <a href="/Admin/Routes" class="active"><i class="fas fa-route"></i> Routes</a>
         <a href="/Admin/Reports"><i class="fas fa-chart-bar"></i> Reports</a>
         <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
             <i class="fas fa-sign-out-alt"></i> Logout
@@ -164,42 +167,51 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h4><i class="fas fa-edit" style="color:#e94560;"></i> Edit Bus</h4>
-            <a href="/Admin/Buses" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+            <h4><i class="fas fa-route" style="color:#e94560;"></i> Routes Management</h4>
+            <a href="/Admin/RouteCreate" class="btn-add"><i class="fas fa-plus"></i> Add Route</a>
         </div>
 
-        <div class="form-card">
-            <form asp-action="BusEdit" asp-controller="Admin" method="post">
-                <input asp-for="BusId" type="hidden" />
-                <div class="mb-3">
-                    <label class="form-label">Bus Number</label>
-                    <input asp-for="BusNumber" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Bus Type</label>
-                    <select asp-for="BusType" class="form-select">
-                        <option value="AC">AC</option>
-                        <option value="Non-AC">Non-AC</option>
-                        <option value="Sleeper">Sleeper</option>
-                        <option value="Mini">Mini</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Total Seats</label>
-                    <input asp-for="TotalSeats" class="form-control" type="number" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select asp-for="IsActive" class="form-select">
-                        <option value="true">Active</option>
-                        <option value="false">Inactive</option>
-                    </select>
-                </div>
-                <div class="mt-4">
-                    <a href="/Admin/Buses" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
-                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Update Bus</button>
-                </div>
-            </form>
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert-success">
+                <i class="fas fa-check-circle"></i> @TempData["Success"]
+            </div>
+        }
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Source City</th>
+                        <th>Destination City</th>
+                        <th>Distance (KM)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var route in Model)
+                    {
+                        <tr>
+                            <td>@route.RouteId</td>
+                            <td><b>@route.SourceCity</b></td>
+                            <td><b>@route.DestinationCity</b></td>
+                            <td>@route.DistanceKM KM</td>
+                            <td>
+                                <a href="/Admin/RouteEdit/@route.RouteId"
+                                   style="color:#f5a623; margin-right:15px; text-decoration:none;">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="/Admin/RouteDelete/@route.RouteId"
+                                   onclick="return confirm('Delete this route?')"
+                                   style="color:#e94560; text-decoration:none;">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 

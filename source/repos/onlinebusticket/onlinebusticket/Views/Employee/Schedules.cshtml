@@ -1,11 +1,11 @@
-﻿@model IEnumerable<online_bus_ticket.Models.Bus>
+﻿@model IEnumerable<online_bus_ticket.Models.BusSchedule>
 @{
     Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bus Management - SRC Travel</title>
+    <title>Schedules - SRC Travel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -140,29 +140,13 @@
             font-size: 14px;
         }
 
-        .badge-active {
-            background-color: #e8f5e9;
-            color: #4CAF50;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
-        .badge-inactive {
-            background-color: #ffebee;
-            color: #f44336;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-
         .alert-success {
             background: #e8f5e9;
             border: 1px solid #4CAF50;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 20px;
-            color: #4CAF50;
+            color: #2e7d32;
         }
     </style>
 </head>
@@ -170,12 +154,9 @@
 
     <div class="sidebar">
         <span class="brand"><i class="fas fa-bus"></i> SRC Travel</span>
-        <a href="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="/Admin/Buses" class="active"><i class="fas fa-bus"></i> Buses</a>
-        <a href="/Admin/Employees"><i class="fas fa-users"></i> Employees</a>
-        <a href="/Admin/Bookings"><i class="fas fa-ticket-alt"></i> Bookings</a>
-        <a href="/Admin/Routes"><i class="fas fa-route"></i> Routes</a>
-        <a href="/Admin/Reports"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="/Employee/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/Employee/Schedules" class="active"><i class="fas fa-calendar-alt"></i> Schedules</a>
+        <a href="/Employee/Bookings"><i class="fas fa-ticket-alt"></i> Bookings</a>
         <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
@@ -183,8 +164,8 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <h4><i class="fas fa-bus" style="color:#e94560;"></i> Bus Management</h4>
-            <a href="/Admin/BusCreate" class="btn-add"><i class="fas fa-plus"></i> Add New Bus</a>
+            <h4><i class="fas fa-calendar-alt" style="color:#e94560;"></i> Bus Schedules</h4>
+            <a href="/Employee/ScheduleCreate" class="btn-add"><i class="fas fa-plus"></i> Add Schedule</a>
         </div>
 
         @if (TempData["Success"] != null)
@@ -199,39 +180,27 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Bus Number</th>
-                        <th>Bus Type</th>
-                        <th>Total Seats</th>
-                        <th>Status</th>
+                        <th>Bus</th>
+                        <th>Route</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Fare</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var bus in Model)
+                    @foreach (var s in Model)
                     {
                         <tr>
-                            <td>@bus.BusId</td>
-                            <td><b>@bus.BusNumber</b></td>
-                            <td>@bus.BusType</td>
-                            <td>@bus.TotalSeats</td>
+                            <td>@s.ScheduleId</td>
+                            <td><b>@s.Bus?.BusNumber</b></td>
+                            <td>@s.Route?.SourceCity → @s.Route?.DestinationCity</td>
+                            <td>@s.DepartureTime.ToString("dd MMM yyyy hh:mm tt")</td>
+                            <td>@s.ArrivalTime.ToString("dd MMM yyyy hh:mm tt")</td>
+                            <td>Rs. @s.Fare</td>
                             <td>
-                                @if (bus.IsActive)
-                                {
-                                    <span class="badge-active"><i class="fas fa-check"></i> Active</span>
-                                }
-                                else
-                                {
-
-                                    <span class="badge-inactive"><i class="fas fa-times"></i> Inactive</span>
-                                }
-                            </td>
-                            <td>
-                                <a href="/Admin/BusEdit/@bus.BusId"
-                                   style="color:#f5a623; margin-right:15px; text-decoration:none;">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <a href="/Admin/BusDelete/@bus.BusId"
-                                   onclick="return confirm('Are you sure?')"
+                                <a href="/Employee/ScheduleDelete/@s.ScheduleId"
+                                   onclick="return confirm('Delete this schedule?')"
                                    style="color:#e94560; text-decoration:none;">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>

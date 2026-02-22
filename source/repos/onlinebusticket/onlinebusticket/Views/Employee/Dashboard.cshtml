@@ -1,0 +1,209 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Dashboard - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, #1a1a2e, #16213e);
+            width: 250px;
+            min-height: 100vh;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+
+            .sidebar .brand {
+                color: #e94560;
+                font-size: 20px;
+                font-weight: bold;
+                display: block;
+                text-align: center;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #ffffff22;
+            }
+
+            .sidebar a {
+                color: #aaa;
+                display: block;
+                padding: 12px 15px;
+                border-radius: 8px;
+                margin-bottom: 5px;
+                text-decoration: none;
+                transition: all 0.3s;
+                font-size: 14px;
+            }
+
+                .sidebar a:hover, .sidebar a.active {
+                    background-color: #e94560;
+                    color: white;
+                }
+
+                .sidebar a i {
+                    margin-right: 10px;
+                    width: 18px;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 25px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            background-color: #f4f6f9;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+            .top-bar h4 {
+                margin: 0;
+                color: #1a1a2e;
+                font-size: 18px;
+            }
+
+        .card-stat {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border-left: 4px solid;
+            text-align: center;
+        }
+
+            .card-stat:hover {
+                transform: translateY(-3px);
+            }
+
+            .card-stat.red {
+                border-left-color: #e94560;
+            }
+
+            .card-stat.orange {
+                border-left-color: #f5a623;
+            }
+
+            .card-stat.green {
+                border-left-color: #4CAF50;
+            }
+
+            .card-stat.blue {
+                border-left-color: #2196F3;
+            }
+
+            .card-stat .icon {
+                font-size: 35px;
+                margin-bottom: 10px;
+            }
+
+            .card-stat.red .icon {
+                color: #e94560;
+            }
+
+            .card-stat.orange .icon {
+                color: #f5a623;
+            }
+
+            .card-stat.green .icon {
+                color: #4CAF50;
+            }
+
+            .card-stat.blue .icon {
+                color: #2196F3;
+            }
+
+            .card-stat .number {
+                font-size: 32px;
+                font-weight: bold;
+                color: #1a1a2e;
+            }
+
+            .card-stat .label {
+                color: #999;
+                font-size: 13px;
+                margin-top: 5px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <span class="brand"><i class="fas fa-bus"></i> SRC Travel</span>
+        <a href="/Employee/Dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/Employee/Schedules"><i class="fas fa-calendar-alt"></i> Schedules</a>
+        <a href="/Employee/Bookings"><i class="fas fa-ticket-alt"></i> Bookings</a>
+        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h4><i class="fas fa-tachometer-alt" style="color:#e94560;"></i> Employee Dashboard</h4>
+            <span style="color:#666; font-size:14px;"><i class="fas fa-user-circle" style="color:#e94560;"></i> Welcome, Employee</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-stat red text-center">
+                    <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="number">@ViewBag.TotalSchedules</div>
+                    <div class="label">Total Schedules</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat orange text-center">
+                    <div class="icon"><i class="fas fa-ticket-alt"></i></div>
+                    <div class="number">@ViewBag.TotalBookings</div>
+                    <div class="label">Total Bookings</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat green text-center">
+                    <div class="icon"><i class="fas fa-bus"></i></div>
+                    <div class="number">@ViewBag.TotalBuses</div>
+                    <div class="label">Total Buses</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-stat blue text-center">
+                    <div class="icon"><i class="fas fa-route"></i></div>
+                    <div class="number">@ViewBag.TotalRoutes</div>
+                    <div class="label">Total Routes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" method="post"></form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
