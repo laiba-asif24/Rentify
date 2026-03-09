@@ -69,6 +69,16 @@ namespace onlinebusticket.Controllers
             var schedule = await _context.BusSchedules.FindAsync(id);
             if (schedule != null)
             {
+                // Pehle related bookings check karo
+                var hasBookings = await _context.Bookings
+                    .AnyAsync(b => b.ScheduleId == id);
+
+                if (hasBookings)
+                {
+                    TempData["Error"] = "This schedule cannot be deleted because it has bookings!";
+                    return RedirectToAction("Schedules");
+                }
+
                 _context.BusSchedules.Remove(schedule);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Schedule deleted successfully!";

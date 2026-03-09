@@ -125,6 +125,10 @@ namespace onlinebusticket.Areas.Identity.Pages.Account
                     {
                         return LocalRedirect("/Employee/Dashboard");
                     }
+                    else if (await _signInManager.UserManager.IsInRoleAsync(user, "Customer"))
+                    {
+                        return LocalRedirect("/Customer/Dashboard");
+                    }
                     else
                     {
                         return LocalRedirect("/Home/Index");

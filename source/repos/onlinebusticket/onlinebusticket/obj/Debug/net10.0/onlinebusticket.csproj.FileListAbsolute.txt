@@ -405,7 +405,6 @@ C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\zh-H
 C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\Microsoft.Data.Sqlite.dll
 C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Sqlite.dll
-C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\SQLitePCLRaw.core.dll
 C:\Users\FBC\source\repos\onlinebusticket\onlinebusticket\bin\Debug\net10.0\SQLitePCLRaw.provider.e_sqlite3.dll

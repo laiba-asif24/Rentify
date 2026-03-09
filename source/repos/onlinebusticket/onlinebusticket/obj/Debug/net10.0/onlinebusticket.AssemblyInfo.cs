@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("onlinebusticket")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9f5b2c8bd250567145f5cd34dd4eaae6e9a45a9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c63ac37d5d8faf7a6357a0c4afe0015eb76aa104")]
 [assembly: System.Reflection.AssemblyProductAttribute("onlinebusticket")]
 [assembly: System.Reflection.AssemblyTitleAttribute("onlinebusticket")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

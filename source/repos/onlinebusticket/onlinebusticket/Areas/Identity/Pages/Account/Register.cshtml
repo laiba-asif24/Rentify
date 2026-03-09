@@ -210,30 +210,35 @@
 
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="ModelOnly" class="alert-danger-custom"></div>
-
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
-                <input asp-for="Input.Email" name="FullName" class="form-control" placeholder="Enter your full name" />
+                <input type="text" name="FullName" class="form-control" placeholder="Enter your full name" required />
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Email Address</label>
                 <input asp-for="Input.Email" class="form-control" placeholder="Enter your email" />
                 <span asp-validation-for="Input.Email" class="error-text"></span>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Min 8 chars, 1 uppercase, 1 number" />
+                <div style="position:relative;">
+                    <input asp-for="Input.Password" type="password" id="password" class="form-control" placeholder="Enter your password" />
+                    <span onclick="togglePass('password', 'eyeIcon1')" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#999;">
+                        <i id="eyeIcon1" class="fas fa-eye"></i>
+                    </span>
+                </div>
                 <span asp-validation-for="Input.Password" class="error-text"></span>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Confirm Password</label>
-                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+                <div style="position:relative;">
+                    <input asp-for="Input.ConfirmPassword" type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" />
+                    <span onclick="togglePass('confirmPassword', 'eyeIcon2')" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#999;">
+                        <i id="eyeIcon2" class="fas fa-eye"></i>
+                    </span>
+                </div>
                 <span asp-validation-for="Input.ConfirmPassword" class="error-text"></span>
             </div>
-
             <button type="submit" class="btn-register">
                 <i class="fas fa-user-plus"></i> Create Account
             </button>
@@ -249,5 +254,21 @@
         </div>
     </div>
 
+
+    <script>
+        function togglePass(fieldId, iconId) {
+            var field = document.getElementById(fieldId);
+            var icon = document.getElementById(iconId);
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>

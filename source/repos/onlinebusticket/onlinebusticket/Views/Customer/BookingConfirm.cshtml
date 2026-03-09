@@ -1,0 +1,277 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Confirmed - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style media="print">
+        .navbar {
+            display: none !important;
+        }
+
+        .btn-mybookings {
+            display: none !important;
+        }
+
+        .btn-home {
+            display: none !important;
+        }
+
+        button {
+            display: none !important;
+        }
+
+        body {
+            background: white !important;
+        }
+
+        .confirm-card {
+            box-shadow: none !important;
+        }
+    </style>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+            .navbar .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .navbar .nav-links a {
+                color: #ddd;
+                text-decoration: none;
+                margin-left: 20px;
+                font-size: 14px;
+            }
+
+        .content {
+            padding: 50px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .confirm-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 35px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(76,175,80,0.4);
+            animation: bounceIn 0.5s ease;
+        }
+
+        @@keyframes bounceIn {
+            0% {
+                transform: scale(0);
+            }
+
+            60% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .confirm-card h2 {
+            color: #1a1a2e;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .confirm-card p {
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .booking-id {
+            background: rgba(233,69,96,0.1);
+            color: #e94560;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .ticket-box {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            margin-bottom: 25px;
+            border: 2px dashed #e0e0e0;
+        }
+
+            .ticket-box h6 {
+                color: #1a1a2e;
+                font-weight: 700;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+            .ticket-row .t-label {
+                color: #999;
+                font-size: 13px;
+            }
+
+            .ticket-row .t-value {
+                color: #1a1a2e;
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: #e94560;
+        }
+
+        .btn-mybookings {
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(233,69,96,0.4);
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+            .btn-mybookings:hover {
+                transform: translateY(-2px);
+                color: white;
+            }
+
+        .btn-home {
+            background: #f4f6f9;
+            color: #666;
+            padding: 14px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+
+            .btn-home:hover {
+                background: #e0e0e0;
+                color: #333;
+            }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/Customer/Dashboard" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+        <div class="nav-links">
+            <a href="/Customer/Dashboard"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/Customer/MyBookings"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="confirm-card">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your ticket has been booked successfully</p>
+            <div class="booking-id">Booking #@ViewBag.BookingId</div>
+
+            <div class="ticket-box">
+                <h6><i class="fas fa-ticket-alt" style="color:#e94560;"></i> Ticket Details</h6>
+                <div class="ticket-row">
+                    <span class="t-label">Route</span>
+                    <span class="t-value">@ViewBag.From → @ViewBag.To</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Bus</span>
+                    <span class="t-value">@ViewBag.BusNumber</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Departure</span>
+                    <span class="t-value">@ViewBag.DepartureTime</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Seats</span>
+                    <span class="t-value">@ViewBag.Seats</span>
+                </div>
+                <div class="ticket-row" style="margin-top:15px; padding-top:15px; border-top:1px solid #e0e0e0;">
+                    <span class="t-label" style="font-size:16px; font-weight:700; color:#1a1a2e;">Total Amount</span>
+                    <span class="total-amount">Rs. @ViewBag.TotalAmount</span>
+                </div>
+            </div>
+            <button onclick="printTicket()" style="background: linear-gradient(135deg, #4CAF50, #388E3C); color:white; padding:14px 35px; border-radius:10px; border:none; font-weight:bold; cursor:pointer; margin-bottom:15px; width:100%; box-shadow: 0 5px 15px rgba(76,175,80,0.4);">
+                <i class="fas fa-print"></i> Print Ticket
+            </button>
+
+            <a href="/Customer/MyBookings" class="btn-mybookings">
+                <i class="fas fa-ticket-alt"></i> My Bookings
+            </a>
+            <a href="/Customer/Dashboard" class="btn-home">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function printTicket() {
+            window.print();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

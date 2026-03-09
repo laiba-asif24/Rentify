@@ -197,9 +197,19 @@
                     <div class="price-section">
                         <div class="price">Rs. @schedule.Fare</div>
                         <div class="price-label">per person</div>
-                        <a href="/Identity/Account/Login" class="btn-book">
-                            <i class="fas fa-ticket-alt"></i> Book Now
-                        </a>
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <a href="/Customer/SeatSelection?scheduleId=@schedule.ScheduleId" class="btn-book">
+                                    <i class="fas fa-ticket-alt"></i> Book Now
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Identity/Account/Login" class="btn-book">
+                                    <i class="fas fa-ticket-alt"></i> Login to Book
+                                </a>
+                            }
+        
                     </div>
                 </div>
                 <div class="bus-info">

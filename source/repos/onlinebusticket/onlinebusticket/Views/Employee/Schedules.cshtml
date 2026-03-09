@@ -173,6 +173,14 @@
             <div class="alert-success">
                 <i class="fas fa-check-circle"></i> @TempData["Success"]
             </div>
+
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert" style="background:#ffebee; color:#f44336; padding:12px 20px; border-radius:8px; margin-bottom:20px; border:1px solid #f44336;">
+                <i class="fas fa-exclamation-circle"></i> @TempData["Error"]
+            </div>
         }
 
         <div class="table-card">

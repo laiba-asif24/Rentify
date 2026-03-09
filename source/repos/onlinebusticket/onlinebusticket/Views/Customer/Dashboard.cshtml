@@ -1,0 +1,335 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Dashboard - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+            .navbar .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .navbar .nav-links a {
+                color: #ddd;
+                text-decoration: none;
+                margin-left: 20px;
+                font-size: 14px;
+            }
+
+                .navbar .nav-links a:hover {
+                    color: #e94560;
+                }
+
+        .btn-logout {
+            background-color: #e94560;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .hero-bar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 40px;
+            color: white;
+            text-align: center;
+        }
+
+            .hero-bar h2 {
+                font-size: 28px;
+                font-weight: 800;
+            }
+
+                .hero-bar h2 span {
+                    color: #e94560;
+                }
+
+            .hero-bar p {
+                color: #aaa;
+                margin-top: 5px;
+            }
+
+        .content {
+            padding: 30px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card-stat {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            border-left: 4px solid;
+            transition: transform 0.3s;
+        }
+
+            .card-stat:hover {
+                transform: translateY(-3px);
+            }
+
+            .card-stat.red {
+                border-left-color: #e94560;
+            }
+
+            .card-stat.green {
+                border-left-color: #4CAF50;
+            }
+
+            .card-stat.orange {
+                border-left-color: #f5a623;
+            }
+
+            .card-stat .icon {
+                font-size: 35px;
+                margin-bottom: 10px;
+            }
+
+            .card-stat.red .icon {
+                color: #e94560;
+            }
+
+            .card-stat.green .icon {
+                color: #4CAF50;
+            }
+
+            .card-stat.orange .icon {
+                color: #f5a623;
+            }
+
+            .card-stat .number {
+                font-size: 32px;
+                font-weight: bold;
+                color: #1a1a2e;
+            }
+
+            .card-stat .label {
+                color: #999;
+                font-size: 13px;
+                margin-top: 5px;
+            }
+
+        .search-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-top: 25px;
+        }
+
+            .search-card h5 {
+                color: #1a1a2e;
+                font-weight: 700;
+                margin-bottom: 20px;
+                font-size: 18px;
+            }
+
+        .form-label {
+            color: #555;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #e94560;
+                box-shadow: none;
+            }
+
+        .btn-search {
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(233,69,96,0.4);
+            transition: all 0.3s;
+        }
+
+            .btn-search:hover {
+                transform: translateY(-2px);
+            }
+
+        .quick-link-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+            .quick-link-card:hover {
+                transform: translateY(-5px);
+                border-bottom: 3px solid #e94560;
+            }
+
+            .quick-link-card i {
+                font-size: 30px;
+                color: #e94560;
+                margin-bottom: 10px;
+            }
+
+            .quick-link-card h6 {
+                color: #1a1a2e;
+                font-weight: 700;
+                margin: 0;
+            }
+
+            .quick-link-card p {
+                color: #999;
+                font-size: 12px;
+                margin-top: 5px;
+            }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/Customer/Dashboard" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+        <div class="nav-links">
+            <a href="/Customer/Dashboard"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/Customer/MyBookings"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+           <a href="/Customer/SearchBus"><i class="fas fa-search"></i> Search Bus</a>
+            <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" method="post" style="display:inline;">
+                <button type="submit" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="hero-bar">
+        <h2>Welcome Back, <span>@ViewBag.UserName!</span></h2>
+        <p>Ready for your next journey?</p>
+    </div>
+
+    <div class="content">
+        <div class="row g-4 mt-1">
+            <div class="col-md-4">
+                <div class="card-stat red">
+                    <div class="icon"><i class="fas fa-ticket-alt"></i></div>
+                    <div class="number">@ViewBag.TotalBookings</div>
+                    <div class="label">Total Bookings</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-stat green">
+                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="number">@ViewBag.ConfirmedBookings</div>
+                    <div class="label">Confirmed Bookings</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-stat orange">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <div class="number">@ViewBag.PendingBookings</div>
+                    <div class="label">Pending Bookings</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-card">
+            <h5><i class="fas fa-search" style="color:#e94560;"></i> Search Your Bus</h5>
+            <form method="get" action="/Home/Search">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">From</label>
+                        <select name="from" class="form-select">
+                            <option value="">-- Select City --</option>
+                            <option value="Karachi">Karachi</option>
+                            <option value="Lahore">Lahore</option>
+                            <option value="Islamabad">Islamabad</option>
+                            <option value="Peshawar">Peshawar</option>
+                            <option value="Quetta">Quetta</option>
+                            <option value="Multan">Multan</option>
+                            <option value="Faisalabad">Faisalabad</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">To</label>
+                        <select name="to" class="form-select">
+                            <option value="">-- Select City --</option>
+                            <option value="Karachi">Karachi</option>
+                            <option value="Lahore">Lahore</option>
+                            <option value="Islamabad">Islamabad</option>
+                            <option value="Peshawar">Peshawar</option>
+                            <option value="Quetta">Quetta</option>
+                            <option value="Multan">Multan</option>
+                            <option value="Faisalabad">Faisalabad</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Travel Date</label>
+                        <input type="date" name="date" class="form-control" />
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn-search">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row g-4 mt-1">
+            <div class="col-md-6">
+                <a href="/Customer/SearchBus" class="quick-link-card">
+                    <i class="fas fa-bus"></i>
+                    <h6>Search Bus</h6>
+                    <p>Find available buses</p>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/Customer/MyBookings" class="quick-link-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h6>My Bookings</h6>
+                    <p>View all your bookings</p>
+                </a>
+            </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+﻿@model online_bus_ticket.Models.Booking
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancel Booking - SRC Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+            .navbar .brand {
+                color: #e94560;
+                font-size: 22px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .navbar .nav-links a {
+                color: #ddd;
+                text-decoration: none;
+                margin-left: 20px;
+                font-size: 14px;
+            }
+
+        .content {
+            padding: 50px 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cancel-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .warning-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f44336, #c62828);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 35px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(244,67,54,0.4);
+        }
+
+        .cancel-card h2 {
+            color: #1a1a2e;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .cancel-card p {
+            color: #999;
+            margin-bottom: 25px;
+        }
+
+        .ticket-box {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            margin-bottom: 25px;
+            border: 2px dashed #e0e0e0;
+        }
+
+            .ticket-box h6 {
+                color: #1a1a2e;
+                font-weight: 700;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+            .ticket-row .t-label {
+                color: #999;
+                font-size: 13px;
+            }
+
+            .ticket-row .t-value {
+                color: #1a1a2e;
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+        .warning-box {
+            background: #fff8e1;
+            border: 1px solid #f5a623;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+            color: #e65100;
+            font-size: 13px;
+            text-align: left;
+        }
+
+            .warning-box i {
+                margin-right: 8px;
+            }
+
+        .btn-cancel-confirm {
+            background: linear-gradient(135deg, #f44336, #c62828);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 5px 15px rgba(244,67,54,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+            .btn-cancel-confirm:hover {
+                transform: translateY(-2px);
+            }
+
+        .btn-back {
+            background: #f4f6f9;
+            color: #666;
+            padding: 14px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+
+            .btn-back:hover {
+                background: #e0e0e0;
+                color: #333;
+            }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/Customer/Dashboard" class="brand"><i class="fas fa-bus"></i> SRC Travel</a>
+        <div class="nav-links">
+            <a href="/Customer/Dashboard"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/Customer/MyBookings"><i class="fas fa-ticket-alt"></i> My Bookings</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="cancel-card">
+            <div class="warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Cancel Booking?</h2>
+            <p>Are you sure you want to cancel this booking?</p>
+
+            <div class="ticket-box">
+                <h6><i class="fas fa-ticket-alt" style="color:#e94560;"></i> Booking Details</h6>
+                <div class="ticket-row">
+                    <span class="t-label">Booking ID</span>
+                    <span class="t-value">#@Model.BookingId</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Route</span>
+                    <span class="t-value">@Model.BusSchedule?.Route?.SourceCity → @Model.BusSchedule?.Route?.DestinationCity</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Bus</span>
+                    <span class="t-value">@Model.BusSchedule?.Bus?.BusNumber</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Departure</span>
+                    <span class="t-value">@Model.BusSchedule?.DepartureTime.ToString("dd MMM yyyy hh:mm tt")</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="t-label">Amount</span>
+                    <span class="t-value" style="color:#e94560; font-size:16px;">Rs. @Model.TotalAmount</span>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <i class="fas fa-exclamation-circle"></i>
+                Once cancelled, this action cannot be undone. Your booking will be marked as cancelled.
+            </div>
+
+            <form method="post" action="/Customer/CancelBookingConfirmed">
+                <input type="hidden" name="id" value="@Model.BookingId" />
+                <button type="submit" class="btn-cancel-confirm">
+                    <i class="fas fa-times-circle"></i> Yes, Cancel Booking
+                </button>
+            </form>
+            <a href="/Customer/MyBookings" class="btn-back" style="margin-top:10px; display:inline-block;">
+                <i class="fas fa-arrow-left"></i> Go Back
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

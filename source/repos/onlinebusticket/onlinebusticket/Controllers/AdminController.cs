@@ -86,6 +86,18 @@ namespace onlinebusticket.Controllers
             var bus = await _context.Buses.FindAsync(id);
             if (bus != null)
             {
+                // Pehle Seats delete karo
+                var seats = await _context.Seats
+                    .Where(s => s.BusId == id).ToListAsync();
+                _context.Seats.RemoveRange(seats);
+
+                // Phir Schedules delete karo
+                var schedules = await _context.BusSchedules
+                    .Where(s => s.BusId == id).ToListAsync();
+                _context.BusSchedules.RemoveRange(schedules);
+
+                await _context.SaveChangesAsync();
+
                 _context.Buses.Remove(bus);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Bus deleted successfully!";
@@ -135,10 +147,11 @@ namespace onlinebusticket.Controllers
         }
         public async Task<IActionResult> EmployeeDelete(int id)
         {
-            var user = await _userManager.FindByIdAsync(id.ToString());
+            var user = await _context.Users.FindAsync(id);
             if (user != null)
             {
-                await _userManager.DeleteAsync(user);
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
                 TempData["Success"] = "Employee deleted successfully!";
             }
             return RedirectToAction("Employees");
@@ -198,6 +211,12 @@ namespace onlinebusticket.Controllers
             var route = await _context.Routes.FindAsync(id);
             if (route != null)
             {
+                // Pehle Schedules delete karo
+                var schedules = await _context.BusSchedules
+                    .Where(s => s.RouteId == id).ToListAsync();
+                _context.BusSchedules.RemoveRange(schedules);
+                await _context.SaveChangesAsync();
+
                 _context.Routes.Remove(route);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Route deleted successfully!";
@@ -221,6 +240,14 @@ namespace onlinebusticket.Controllers
             var booking = await _context.Bookings.FindAsync(id);
             if (booking != null)
             {
+                // Pehle BookingSeats delete karo
+                var bookingSeats = await _context.BookingSeats
+                    .Where(bs => bs.BookingId == id)
+                    .ToListAsync();
+                _context.BookingSeats.RemoveRange(bookingSeats);
+                await _context.SaveChangesAsync();
+
+                // Phir Booking delete karo
                 _context.Bookings.Remove(booking);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Booking deleted successfully!";
